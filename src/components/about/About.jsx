@@ -11,11 +11,14 @@ const About = () => {
         <Back name='About Us' title='About Us - Who We Are?' cover={img} />
         <div className='container flex mtop'>
           <div className='left row'>
-            <Heading title='Our Agency Story' subtitle='Check out our company story and work process' />
+            <Heading title='Our platform Story' subtitle='Check out our website story and work process' />
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
-            <button className='btn2'>More About Us</button>
+            <p> At Edugate, our soul focus is to assist you in finding the perfect school for your child's education by taking into account their unique preferences, requirements, and goals. We understand that every child is different, and their educational journey should reflect their individual needs.
+
+Our platform is meticulously designed to make the school search process simpler and more efficient for parents like you. We aim to provide you with a seamless experience where you can easily explore and compare a comprehensive range of educational institutions. 
+.</p>
+            
+
           </div>
           <div className='right row'>
             <img src='./immio.jpg' alt='' />

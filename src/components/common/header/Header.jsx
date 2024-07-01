@@ -1,43 +1,83 @@
-import React, { useState } from "react"
-import "./header.css"
-import { nav } from "../../data/Data"
-import { Link } from "react-router-dom"
+import React, { useState, useEffect } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { getAuthUser, removeAuthUser } from "../../../helper/Storage";
+import "./header.css";
 
 const Header = () => {
-  const [navList, setNavList] = useState(false)
+  const [isAuthenticated, setIsAuthenticated] = useState(!!getAuthUser());
+  const history = useHistory();
+
+  const handleLogout = () => {
+    removeAuthUser();
+    setIsAuthenticated(false);
+    history.push("/login");
+  };
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setIsAuthenticated(!!getAuthUser());
+    };
+
+    const handleAuthChange = () => {
+      setIsAuthenticated(!!getAuthUser());
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    window.addEventListener("authChange", handleAuthChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("authChange", handleAuthChange);
+    };
+  }, []);
+
+  const authUser = getAuthUser();
 
   return (
     <>
       <header>
-        <div className='container flex'>
-          <div className='logo'>
-            <img src='./images/logo.png' alt='' />
+        <div className="container flex">
+          <div className="logo">
+            <img src="./images/logo.png" alt="" />
           </div>
-          <div className='nav'>
-            <ul className={navList ? "small" : "flex"}>
-              {nav.map((list, index) => (
-                <li key={index}>
-                  <Link to={list.path}>{list.text}</Link>
-                </li>
-              ))}
+          <div className="nav">
+            <ul>
+              <Link to="/">Home</Link>
+              {isAuthenticated && authUser && authUser.role === 0 && <Link to="/about">About</Link>}
+              {isAuthenticated && authUser && authUser.role === 0 && <Link to="/services">Types</Link>}
+              {isAuthenticated && <Link to="/blog">Schools</Link>}
+              {isAuthenticated && authUser && authUser.role === 0 && <Link to="/pricing">Top Schools</Link>}
+              {isAuthenticated && authUser && authUser.role === 0 && <Link to="/contact">Contact</Link>}
+              {!isAuthenticated && <Link to="/register">Register</Link>}
+              {!isAuthenticated && <Link to="/login">Login</Link>}
+              {isAuthenticated && authUser && authUser.role === 1 && <Link to="/ManageSchools">Manage Schools</Link>}
+              {isAuthenticated && authUser && authUser.role === 1 && <Link to="/ContactAdmin">FeedBack</Link>}
             </ul>
           </div>
-          <div className='button flex'>
-            <h4>
-              <span>2</span> My List
-            </h4>
-            <button className='btn1'>
-              <i className='fa fa-sign-out'></i> Sign In
-            </button>
+          <div className="button flex">
+            {isAuthenticated && (
+              <button
+                className="btn1"
+                style={{ fontSize: "0.7em", marginRight: "15px" }}
+                onClick={handleLogout}
+              >
+                <i className="fa fa-sign-out"></i> Logout
+              </button>
+            )}
           </div>
-
-          <div className='toggle'>
-            <button onClick={() => setNavList(!navList)}>{navList ? <i className='fa fa-times'></i> : <i className='fa fa-bars'></i>}</button>
+          <div className="toggle">
+            <button>
+              {isAuthenticated ? (
+                <i className="fa fa-times"></i>
+              ) : (
+                <i className="fa fa-bars"></i>
+              )}
+            </button>
           </div>
         </div>
       </header>
     </>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

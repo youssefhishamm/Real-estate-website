@@ -4,16 +4,22 @@ import "./price.css"
 import PriceCard from "./PriceCard"
 
 const Price = () => {
-  return (
-    <>
-      <section className='price padding'>
-        <div className='container'>
-          <Heading title='Select Your Package' subtitle='At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores' />
-          <PriceCard />
-        </div>
-      </section>
-    </>
-  )
+    return ( <
+        >
+        <
+        section className = 'price padding' >
+        <
+        div className = 'container' >
+        <
+        Heading title = 'Top ranked Schools'
+        subtitle = "we've put together a list of the top 3 schools in Cairo, Egypt." / >
+        <
+        PriceCard / >
+        <
+        /div> < /
+        section > <
+        />
+    )
 }
 
 export default Price
